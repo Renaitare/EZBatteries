@@ -1,0 +1,24 @@
+---
+name: EZBatteries
+icmd: killall -9 SpringBoard
+
+all:
+    targetvers: 10.0
+    archs:
+        - arm64
+        - arm64e
+    
+EZBatteries:
+    dir: src/EZBatteries
+    type: tweak
+    logos_files:
+        - EZBatteries.xm
+    arc:
+        - Yes
+
+EZBatteriesPrefs:
+    dir: src/EZBatteriesPrefs
+    type: prefs
+    objc_files:
+        - EZBRootListController.m
+    

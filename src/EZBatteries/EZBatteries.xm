@@ -45,17 +45,17 @@ static void loadPrefs() {
 }
 
 %new
+
 -(void)check{
   notify_post("com.easy-z.ezbatteries");
 }
 
 %end
 
-
 %ctor {
-  if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"]) { //check if its springboard
+  if ([NSBundle.mainBundle.bundleIdentifier isEqual:@"com.apple.springboard"]) { // Check if its springboard
     int regToken; // The registration token
-    notify_register_dispatch("com.easy-z.ezbatteries", &regToken, dispatch_get_main_queue(), ^(int token) {  //Request notification delivery to a dispatch queue
+    notify_register_dispatch("com.easy-z.ezbatteries", &regToken, dispatch_get_main_queue(), ^(int token) {  // Request notification delivery to a dispatch queue
     BCBatteryDeviceController *bcb = [%c(BCBatteryDeviceController) sharedInstance];
     NSArray *devices = MSHookIvar<NSArray *>(bcb, "_sortedDevices");
     loadPrefs();
@@ -74,10 +74,10 @@ static void loadPrefs() {
       notifMsg = [notifMsg stringByAppendingString:[NSString stringWithFormat:@"%@ : %lld%%\n", deviceName, deviceCharge]];
       }
 
-      //Removes the last \n to remove gap
+      // Removes the last \n to remove gap
       notifMsg = [notifMsg substringToIndex:[notifMsg length]-1];
 
-      //shows the alert if it is checked in prefs
+      // Shows the alert if it is checked in prefs
       if (alert) {
         confirmationAlertController.title = @"Percentages";
         UIAlertAction *confirmCancel = [UIAlertAction
@@ -85,7 +85,7 @@ static void loadPrefs() {
         style:UIAlertActionStyleDefault
         handler:^(UIAlertAction * action)
         {
-          //Do nothing
+          // Do nothing
         }];
 
         [confirmationAlertController addAction:confirmCancel];

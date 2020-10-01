@@ -1,2 +1,6 @@
-.theos/
-packages/
+.theos
+.dragon
+build.ninja
+packages
+.DS_Store
+.vscode
