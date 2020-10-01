@@ -1,18 +1,23 @@
-ARCHS = arm64 arm64e
+export ARCHS = arm64 arm64e
+export TARGET = iphone:clang:14.0:10.0
+
+# Unfortunately needed :(
+GO_EASY_ON_ME = 1
 
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = EZBatteries
-EZBatteries_FILES = Tweak.xm
+EZBatteries_FILES = src/EZBatteries/EZBatteries.xm
 EZBatteries_EXTRA_FRAMEWORKS += Cephei
 
-include $(THEOS_MAKE_PATH)/tweak.mk
+include $(THEOS)/makefiles/tweak.mk
 
 internal-stage::
 	mkdir -p "$(THEOS_STAGING_DIR)/Library/EZBatteries"
-	cp Resources/* "$(THEOS_STAGING_DIR)/Library/EZBatteries"
+	cp assets/Resources/* "$(THEOS_STAGING_DIR)/Library/EZBatteries"
 
 after-install::
 	install.exec "killall -9 SpringBoard"
-SUBPROJECTS += ezbatteriesprefs
-include $(THEOS_MAKE_PATH)/aggregate.mk
+
+SUBPROJECTS += src/EZBatteriesPrefs
+include $(THEOS)/makefiles/aggregate.mk
